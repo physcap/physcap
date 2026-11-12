@@ -1,0 +1,69 @@
+# Identify Empty Can in the LIBERO simulator.
+#
+# The real task's objects on a LIBERO table, in front of a simulated Franka arm:
+# black, green, blue and red drink cans and a flat wooden tray. The masses are
+# the real cans' (configs/identify_empty_can/gt-mass.json): red is empty
+# (0.015 kg), green 0.208 kg, blue 0.388 kg, black 0.392 kg. Green and red have
+# been opened (a straw in the lid); black and blue have not. Each trial places
+# the cans in seven areas of the table, with the tray to their right; the trial
+# number fixes the layout.
+#
+# The prompts are the real task's (prompts/tasks/identify_empty_can/), unchanged;
+# only the robot they name differs (prompts/robots/libero_franka.txt). get_mass
+# grasps the can, lifts it 15 cm and reads its mass; the simulator reveals a mass
+# only after the can was held for 0.5 s while lifted at least 3 cm for 0.5 s.
+# Success is LIBERO's check: the red can is on the tray.
+#
+# Visual setting: the same as the real Identify Empty Can runs.
+#   use_visual_feedback: false -- the CaP and CaP+PhysX coding agents do not see the
+#     camera image after each turn. The other methods ignore this flag.
+#   use_img_differencing: true -- the Visual Differencing Module (CaP-X setting M3)
+#     describes in text what changed, and the coding agent gets that text. All methods.
+#
+# Needs the LIBERO install: uv sync --extra libero
+# Run:
+#   uv run --extra libero python -m physcap.run --config-path configs/libero_identify_empty_can/sim.yaml --method physcap
+
+env:
+  _target_: physcap.envs.libero.can_task.LiberoTaskEnv
+  cfg:
+    _target_: capx.envs.tasks.base.CodeExecEnvConfig
+    low_level:
+      _target_: physcap.envs.libero.can_task.LiberoCanEnv
+      control_freq: 20
+      grip_duration_s: 0.5
+      lift_duration_s: 0.5
+      lift_threshold_m: 0.03
+      empty_mass_threshold: 0.1
+      aliases_path: configs/libero_identify_empty_can/aliases.json
+      # Records the agent's EMPTY CAN line for reference; success itself is
+      # LIBERO's own check (the red can is on the tray).
+      target_key: "red can"
+      decision_label: "EMPTY CAN"
+    privileged: true
+    apis:
+      - LiberoPhysXApi
+
+task_name: libero_identify_empty_can
+# The real Identify Empty Can prompts (task text, coding-agent rules, short summary) ...
+prompt_dir: prompts/tasks/identify_empty_can
+# ... on the simulated robot instead of the AgileX PiPER.
+robot_prompt: prompts/robots/libero_franka.txt
+
+server_url: http://127.0.0.1:8110/chat/completions
+model: google/gemini-3.1-pro-preview
+
+# Visual setting: see the comment at the top of this file.
+use_visual_feedback: false
+use_img_differencing: true
+
+use_parallel_ensemble: false
+use_multimodel: false
+temperature: 0.2
+
+output_dir: outputs/libero_identify_empty_can
+trials: 1
+num_workers: 1
+
+# Cost guard: at most this many turns per trial (four cans to probe, then the placement).
+max_turns: 10

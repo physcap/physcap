@@ -1,0 +1,2 @@
+Observed state change summary from the previous step:
+{differencing_feedback}

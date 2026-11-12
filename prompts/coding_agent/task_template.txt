@@ -1,0 +1,7 @@
+You are controlling {robot}.
+
+{task}
+
+{coding_rules}
+
+Write ONLY executable Python code (no code fences).

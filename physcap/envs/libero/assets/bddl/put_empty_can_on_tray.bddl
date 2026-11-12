@@ -1,0 +1,109 @@
+(define (problem empty_can_mass_sensing)
+  (:domain robosuite)
+  (:language put the empty can on the wooden tray)
+
+  (:regions
+    (wooden_tray_init_region
+      (:target main_table)
+      (:ranges (
+        (-0.20 0.26 0.05 0.30)
+      ))
+    )
+    (red_can_init_region
+      (:target main_table)
+      (:ranges (
+        (-0.195 -0.280 -0.125 -0.210)
+        (-0.060 -0.250  0.010 -0.180)
+        ( 0.060 -0.100  0.130 -0.030)
+
+        (-0.140 -0.130 -0.070 -0.060)
+        ( 0.040 -0.110  0.110 -0.040)
+
+        (-0.180  0.040 -0.110  0.110)
+        (-0.010  0.070  0.060  0.140)
+      ))
+    )
+
+    (black_can_init_region
+      (:target main_table)
+      (:ranges (
+        (-0.195 -0.280 -0.125 -0.210)
+        (-0.060 -0.250  0.010 -0.180)
+        ( 0.060 -0.100  0.130 -0.030)
+
+        (-0.140 -0.130 -0.070 -0.060)
+        ( 0.040 -0.110  0.110 -0.040)
+
+        (-0.180  0.040 -0.110  0.110)
+        (-0.010  0.070  0.060  0.140)
+      ))
+    )
+
+    (green_can_init_region
+      (:target main_table)
+      (:ranges (
+        (-0.195 -0.280 -0.125 -0.210)
+        (-0.060 -0.250  0.010 -0.180)
+        ( 0.060 -0.100  0.130 -0.030)
+
+        (-0.140 -0.130 -0.070 -0.060)
+        ( 0.040 -0.110  0.110 -0.040)
+
+        (-0.180  0.040 -0.110  0.110)
+        (-0.010  0.070  0.060  0.140)
+      ))
+    )
+
+    (blue_can_init_region
+      (:target main_table)
+      (:ranges (
+        (-0.195 -0.280 -0.125 -0.210)
+        (-0.060 -0.250  0.010 -0.180)
+        ( 0.060 -0.100  0.130 -0.030)
+
+        (-0.140 -0.130 -0.070 -0.060)
+        ( 0.040 -0.110  0.110 -0.040)
+
+        (-0.180  0.040 -0.110  0.110)
+        (-0.010  0.070  0.060  0.140)
+      ))
+    )
+    (contain_region
+      (:target wooden_tray_1)
+    )
+  )
+
+  (:fixtures
+    main_table - table
+  )
+
+  (:objects
+    red_can_1 - red_can
+    black_can_1 - black_can
+    green_can_1 - green_can
+    blue_can_1 - blue_can
+    wooden_tray_1 - flat_wooden_tray
+  )
+
+  (:obj_of_interest
+    red_can_1
+    black_can_1
+    green_can_1
+    blue_can_1
+    wooden_tray_1
+  )
+
+  (:init
+    (On red_can_1 main_table_red_can_init_region)
+    (On black_can_1 main_table_black_can_init_region)
+    (On green_can_1 main_table_green_can_init_region)
+    (On blue_can_1 main_table_blue_can_init_region)
+    (On wooden_tray_1 main_table_wooden_tray_init_region)
+  )
+
+  (:goal
+    (And
+      (In red_can_1 wooden_tray_1_contain_region)
+    )
+  )
+)

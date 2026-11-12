@@ -1,0 +1,16 @@
+The following code blocks were just executed:
+```python
+{executed_code}
+```
+The current console stdout is:
+```
+{console_stdout}
+```
+The current console stderr is:
+```
+{console_stderr}
+```
+If there were no errors during compilation or execution, the console stderr will be empty. If there were errors, consider regenerating the code.
+Please respond with EXACTLY ONE of the following:
+- The word 'REGENERATE' followed immediately by new Python code in a fenced code block (```python...```) if you want to modify the code.
+- The word 'FINISH' if the task appears to be complete

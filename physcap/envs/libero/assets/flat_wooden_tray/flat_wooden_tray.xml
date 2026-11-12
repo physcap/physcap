@@ -1,0 +1,30 @@
+<mujoco model="flat_wooden_tray">
+  <!-- A flat wooden tray, 20 x 14 cm with a 2 cm rim, like the real task's tray.
+       Written by make_models.py. Texture: LIBERO's wooden_tray (MIT License).
+       contain_region is the box LIBERO checks for "the can is on the tray". -->
+  <asset>
+    <texture name="tray_wood_tex" file="wood.png" type="2d"/>
+    <material name="tray_wood" texture="tray_wood_tex" texrepeat="1 1" reflectance="0.2"/>
+  </asset>
+  <worldbody>
+    <body>
+      <body name="object">
+        <inertial pos="0 0 0.006" mass="0.8" diaginertia="0.0013 0.0027 0.0040"/>
+        <geom type="box" size="0.1 0.07 0.004" pos="0 0 0.004" material="tray_wood" group="0" friction="0.95 0.3 0.1" solimp="0.998 0.998 0.001" solref="0.001 1"/>
+        <geom type="box" size="0.1 0.004 0.01" pos="0 0.066 0.01" material="tray_wood" group="0" friction="0.95 0.3 0.1" solimp="0.998 0.998 0.001" solref="0.001 1"/>
+        <geom type="box" size="0.1 0.004 0.01" pos="0 -0.066 0.01" material="tray_wood" group="0" friction="0.95 0.3 0.1" solimp="0.998 0.998 0.001" solref="0.001 1"/>
+        <geom type="box" size="0.004 0.07 0.01" pos="0.096 0 0.01" material="tray_wood" group="0" friction="0.95 0.3 0.1" solimp="0.998 0.998 0.001" solref="0.001 1"/>
+        <geom type="box" size="0.004 0.07 0.01" pos="-0.096 0 0.01" material="tray_wood" group="0" friction="0.95 0.3 0.1" solimp="0.998 0.998 0.001" solref="0.001 1"/>
+        <geom type="box" size="0.1 0.07 0.004" pos="0 0 0.004" material="tray_wood" group="1" contype="0" conaffinity="0"/>
+        <geom type="box" size="0.1 0.004 0.01" pos="0 0.066 0.01" material="tray_wood" group="1" contype="0" conaffinity="0"/>
+        <geom type="box" size="0.1 0.004 0.01" pos="0 -0.066 0.01" material="tray_wood" group="1" contype="0" conaffinity="0"/>
+        <geom type="box" size="0.004 0.07 0.01" pos="0.096 0 0.01" material="tray_wood" group="1" contype="0" conaffinity="0"/>
+        <geom type="box" size="0.004 0.07 0.01" pos="-0.096 0 0.01" material="tray_wood" group="1" contype="0" conaffinity="0"/>
+        <site type="box" pos="0 0 0.08" quat="1 0 0 0" size="0.096 0.066 0.075" group="0" rgba="0.8 0 0 0" name="contain_region"/>
+      </body>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0" name="bottom_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.02" name="top_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0.1 0.07 0" name="horizontal_radius_site"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,66 @@
+# Identify Empty Can -- dummy mode (no robot).
+#
+# Four soft drink cans, one empty; move the empty one to a wooden tray. A photo
+# stands in for the camera, and get_mass returns the value in gt-mass.json. The
+# photo switches to the "can on the tray" scene once the agent declares the
+# correct can (EMPTY CAN: red can). See docs/dummy_mode.md.
+#
+# Visual setting: as in the paper. CaP-X setting S2
+# (high-level API).
+#   use_visual_feedback: false -- the CaP and CaP+PhysX coding agents do not see the
+#     camera image after each turn. The other methods ignore this flag.
+#   use_img_differencing: true -- from the second turn on, the Visual
+#     Differencing Module (CaP-X setting M3) describes in text what changed
+#     in the scene, and the coding agent gets that text. All methods.
+# The Planner and Prioritizer always see the scene image.
+#
+# Run:
+#   uv run python -m physcap.run --config-path configs/identify_empty_can/dummy.yaml --method physcap
+
+env:
+  _target_: physcap.envs.piper_env.PiperEnv
+  cfg:
+    _target_: capx.envs.tasks.base.CodeExecEnvConfig
+    low_level:
+      _target_: physcap.envs.piper_dummy.PiperDummyLowLevel
+      scenes_path: configs/identify_empty_can/scenes.json
+      scenario: tray_right
+      aliases_path: configs/identify_empty_can/aliases.json
+      gt_mass_path: configs/identify_empty_can/gt-mass.json
+      # auto: no prompts at all -- the scene flips on its own and mass comes
+      # from gt-mass.json. Set to false for interactive photo/value selection.
+      auto: true
+      # Marks in the report when the empty can was first measured. The photo does
+      # not follow it: `final` has one photo per can, shown for the declared can.
+      empty_mass_threshold: 0.1
+      # Grades the agent's declared line. Used only for scoring: never shown
+      # to the agent and never steers the trial.
+      target_key: "red can"
+      decision_label: "EMPTY CAN"
+    privileged: true
+    apis:
+      - DummyPhysXApi
+
+task_name: identify_empty_can
+# Every prompt for this task (task text, coding-agent rules, short summary) is in this folder.
+prompt_dir: prompts/tasks/identify_empty_can
+
+server_url: http://127.0.0.1:8110/chat/completions
+model: google/gemini-3.1-pro-preview
+
+# Visual setting: see the comment at the top of this file.
+use_visual_feedback: false
+use_img_differencing: true
+
+use_parallel_ensemble: false
+use_multimodel: false
+temperature: 0.2
+
+output_dir: outputs/identify_empty_can
+trials: 1
+num_workers: 1
+
+# Cost guard: hard cap on multi-turn iterations per trial. Nothing blocks on
+# human input in auto mode, so an agent that never says FINISH would otherwise
+# keep querying the model. There are only 4 cans, so 8 turns is generous.
+max_turns: 8

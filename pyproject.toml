@@ -1,0 +1,70 @@
+[project]
+name = "physcap"
+version = "0.1.0"
+description = "PhysCaP: Grounding Code-as-Policy Agent with Physics-Informed Exploration"
+readme = "README.md"
+requires-python = ">=3.10, <3.13"
+license = { text = "MIT" }
+dependencies = [
+  "capx",
+  "google-genai",
+  "accelerate>=1.12.0",
+]
+
+[project.optional-dependencies]
+# LIBERO simulation, passed through to CaP-X's extra.
+libero = ["capx[libero]"]
+dev = ["capx[dev]"]
+
+[tool.uv.sources]
+capx = { path = "third_party/cap-x", editable = true }
+
+
+# uv reads these settings only from the top-level project, so they are copied here from
+# third_party/cap-x/pyproject.toml. Update them if you move to a newer CaP-X.
+[tool.uv]
+environments = [
+    "sys_platform == 'linux' and platform_machine == 'x86_64'"
+]
+constraint-dependencies = [
+    "setuptools<81",  # sam3 imports pkg_resources, removed in setuptools 81
+]
+override-dependencies = [
+    "transformers<5.0",
+    "PyOpenGL==3.1.6",
+    "PyOpenGL-accelerate==3.1.6",
+    "numpy==1.26.4",
+    "opencv-python-headless<4.13",
+    "opencv-python ; sys_platform == 'never'",
+    "jax<0.4.30",
+    "jaxlib<0.4.30"
+]
+conflicts = [
+  [
+    { package = "capx", extra = "robosuite" },
+    { package = "capx", extra = "libero" },
+  ],
+  [
+    { package = "capx", extra = "molmo" },
+    { package = "capx", extra = "robosuite" },
+  ],
+  [
+    { package = "capx", extra = "molmo" },
+    { package = "capx", extra = "verl" },
+  ],
+]
+
+[tool.uv.extra-build-dependencies]
+egl-probe = ["cmake<3.27"]
+pointnet2 = ["torch"]
+knn = ["torch"]
+flash-attn = ["torch"]
+contact-graspnet-pytorch = ["numpy"]
+nvidia-curobo = ["torch"]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["physcap*"]

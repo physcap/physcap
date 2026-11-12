@@ -1,0 +1,29 @@
+{
+  "red can": [
+    "red coca-cola can",
+    "coca-cola can",
+    "coke can",
+    "red can"
+  ],
+  "green can": [
+    "green sprite can",
+    "sprite can",
+    "green can",
+    "sprite",
+    "green lemon lime soda can"
+  ],
+  "blue can": [
+    "blue monster can",
+    "blue can",
+    "monster energy blue",
+    "blue energy drink",
+    "blue monster energy can"
+  ],
+  "black can": [
+    "black monster can",
+    "black can",
+    "monster energy black",
+    "black energy drink",
+    "black monster energy can"
+  ]
+}

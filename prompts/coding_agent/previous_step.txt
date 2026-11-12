@@ -1,0 +1,12 @@
+Previously executed code:
+```python
+{executed_code}
+```
+
+Console stdout from the last step:
+{console_stdout}
+
+Console stderr from the last step:
+{console_stderr}
+
+Generate the next code block that best advances the selected step given the current execution context.

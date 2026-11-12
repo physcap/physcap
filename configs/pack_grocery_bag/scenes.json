@@ -1,0 +1,11 @@
+{
+  "bag_right": {
+    "initial": "configs/pack_grocery_bag/scenes/0_initial.jpeg",
+    "final": {
+      "blue": "configs/pack_grocery_bag/scenes/1_final_blue.jpeg",
+      "red": "configs/pack_grocery_bag/scenes/1_final_red.jpeg",
+      "green": "configs/pack_grocery_bag/scenes/1_final_green.jpeg",
+      "yellow": "configs/pack_grocery_bag/scenes/1_final_yellow.jpeg"
+    }
+  }
+}

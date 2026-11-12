@@ -1,0 +1,27 @@
+<mujoco model="red_can">
+  <!-- A red drink can, 12 cm tall and 5.5 cm wide, 0.015 kg, with a silver lid.
+       Opened: a dark opening in the lid and a bent straw.
+       Written by make_models.py. Mesh: robosuite's can (MIT License), stretched. -->
+  <asset>
+    <mesh name="red_can_visual" file="../cans/can.obj" scale="1.1 1.1 1.500"/>
+    <material name="red_can_mat" rgba="0.80 0.08 0.08 1" reflectance="0.2" specular="0.3" shininess="0.3"/>
+    <material name="red_can_silver" rgba="0.80 0.81 0.84 1" reflectance="0.5" specular="1" shininess="0.9"/>
+  </asset>
+  <worldbody>
+    <body>
+      <body name="object">
+        <inertial pos="0 0 0" mass="0.015" diaginertia="0.0000208 0.0000208 0.0000057"/>
+        <geom type="mesh" mesh="red_can_visual" material="red_can_mat" group="1" contype="0" conaffinity="0"/>
+        <geom name="lid" type="cylinder" size="0.0262 0.003" pos="0 0 0.0582" material="red_can_silver" group="1" contype="0" conaffinity="0"/>
+        <geom name="base" type="cylinder" size="0.0262 0.003" pos="0 0 -0.0570" material="red_can_silver" group="1" contype="0" conaffinity="0"/>
+        <geom name="opening" type="box" size="0.0058 0.008 0.0006" pos="0 0.0110 0.0612" rgba="0.02 0.02 0.02 1" group="1" contype="0" conaffinity="0"/>
+        <geom name="straw" type="capsule" fromto="0.0000 0.0180 0.0412 0.0000 0.0180 0.1162" size="0.0042" rgba="1.0 0.85 0.1 1" group="1" contype="0" conaffinity="0"/>
+        <geom name="straw_bend" type="capsule" fromto="0.0000 0.0180 0.1162 0.0000 0.0460 0.1362" size="0.0042" rgba="1.0 0.85 0.1 1" group="1" contype="0" conaffinity="0"/>
+        <geom type="cylinder" size="0.0275 0.06" group="0" friction="1.0 0.3 0.1" solimp="0.998 0.998 0.001" solref="0.001 1"/>
+      </body>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 -0.06" name="bottom_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.06" name="top_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0.0275 0 0" name="horizontal_radius_site"/>
+    </body>
+  </worldbody>
+</mujoco>

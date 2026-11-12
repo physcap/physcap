@@ -1,0 +1,7 @@
+{
+  "red can": ["red can", "red_can", "red_can_1", "red", "red can with straw", "red can with a straw", "opened red can"],
+  "green can": ["green can", "green_can", "green_can_1", "green", "green can with straw", "green can with a straw", "opened green can"],
+  "blue can": ["blue can", "blue_can", "blue_can_1", "blue", "unopened blue can"],
+  "black can": ["black can", "black_can", "black_can_1", "black", "unopened black can"],
+  "wooden tray": ["wooden tray", "wooden_tray", "wooden_tray_1", "tray", "target tray"]
+}

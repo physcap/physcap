@@ -1,0 +1,16 @@
+{
+  "blue": [
+    "blue cube"
+  ],
+  "red": [
+    "red cube"
+  ],
+  "green": [
+    "green cube",
+    "green cube between bag and blue cube"
+  ],
+  "yellow": [
+    "yellow cube",
+    "yellow cube between red cube and bag"
+  ]
+}

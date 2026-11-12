@@ -1,0 +1,11 @@
+{
+  "tray_right": {
+    "initial": "configs/identify_empty_can/scenes/0_initial.jpeg",
+    "final": {
+      "red can": "configs/identify_empty_can/scenes/1_final_red.jpeg",
+      "green can": "configs/identify_empty_can/scenes/1_final_green.jpeg",
+      "blue can": "configs/identify_empty_can/scenes/1_final_blue.jpeg",
+      "black can": "configs/identify_empty_can/scenes/1_final_black.jpeg"
+    }
+  }
+}
